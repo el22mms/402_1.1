@@ -17,7 +17,7 @@ PwmOut blue_LED(PB_4);  //PWM output to blue led
 
 AnalogIn pot1(PA_5);
 AnalogIn pot2(PA_6);
-AnalogIn pot3(PA_7);)
+AnalogIn pot3(PA_7);
 
 float frequency = 100;  //Create frequency variable to set PWM frequencies to 100 Hz
 
@@ -29,28 +29,16 @@ int main()
     
     while (true)
     {
-        
-        for(float PWM = 0.00; PWM <= 1.00; PWM += 0.02){   //cycle up from 0% duty cycle to 100% in increments of 2% 
-                red_LED.write(PWM);                        //write PWM duty cycle to LED
-                thread_sleep_for(WAIT_TIME_MS);
-        }
-        red_LED.write(0.0);                                //Set the red LED to 0 after the for loop completes
-        thread_sleep_for(1000);                            // Sleep for 1 s to make the transition between colours more obvious
+        float val = pot1.read();
+        red_LED.write(val);
 
-        for(float PWM = 0.00; PWM <= 1.00; PWM += 0.02){   //cycle up from 0% duty cycle to 100% in increments of 2% 
-                green_LED.write(PWM);                      //write PWM duty cycle to LED
-                thread_sleep_for(WAIT_TIME_MS);
-        }
-        green_LED.write(0.0);                               //Set the green LED to 0 after the for loop completes
-        thread_sleep_for(1000); 
-        
-        for(float PWM = 0.00; PWM <= 1.00; PWM += 0.02){   //cycle up from 0% duty cycle to 100% in increments of 2% 
-                blue_LED.write(PWM);                      //write PWM duty cycle to LED
-                thread_sleep_for(WAIT_TIME_MS);
-        }
-        blue_LED.write(0.0);                               //Set the green LED to 0 after the for loop completes
-        thread_sleep_for(1000);                            // Sleep for 1 s to make the transition between colours more obvious
+        float PWM = pot2.read();
+        green_LED.write(PWM);
 
+        float PWM3 = pot3.read();
+        blue_LED.write(PWM3);
+        
+        
     }
 }
 
